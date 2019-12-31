@@ -15,5 +15,5 @@ elif [ "${TAG}" != "beta" ] && [ "${TAG}" != "public" ]; then
   fi
   
   echo "Attempting to install: ${remoteVersion}"
-  installFromUrl "${remoteFile}"
+  installFromRawUrl "${remoteFile}"
 fi

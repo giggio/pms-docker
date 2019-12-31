@@ -1,6 +1,6 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
-ARG S6_OVERLAY_VERSION=v1.17.2.0
+ARG S6_OVERLAY_VERSION=v1.22.1.0
 ARG DEBIAN_FRONTEND="noninteractive"
 ENV TERM="xterm" LANG="C.UTF-8" LC_ALL="C.UTF-8"
 
@@ -16,22 +16,18 @@ RUN \
       uuid-runtime \
       unrar \
     && \
-
 # Fetch and extract S6 overlay
-    curl -J -L -o /tmp/s6-overlay-amd64.tar.gz https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz && \
-    tar xzf /tmp/s6-overlay-amd64.tar.gz -C / && \
-
+    curl -J -L -o /tmp/s6-overlay.tar.gz https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-armhf.tar.gz && \
+    tar xzf /tmp/s6-overlay.tar.gz -C / && \
 # Add user
     useradd -U -d /config -s /bin/false plex && \
     usermod -G users plex && \
-
 # Setup directories
     mkdir -p \
       /config \
       /transcode \
       /data \
     && \
-
 # Cleanup
     apt-get -y autoremove && \
     apt-get -y clean && \
